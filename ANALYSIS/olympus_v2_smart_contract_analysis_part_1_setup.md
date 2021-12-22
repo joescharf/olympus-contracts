@@ -23,14 +23,11 @@ IOTA_PRIVATE_KEY="your_iota_evm_testnet_private_key"
 ## Deploy the contracts:
 - `npx hardhat node --network hardhat` to start local json-rpc server and deploys all the contracts.
   - Run it in separate terminal process 
-  - Uses the overloaded `hardhat node` provided by `hardhat-deploy` plugin [see hardhat node for more info](https://github.com/wighawag/hardhat-deploy/tree/master#2-hardhat-node)
+  - Uses the overloaded `hardhat node` task provided by `hardhat-deploy` plugin [see hardhat node task for more info](https://github.com/wighawag/hardhat-deploy/tree/master#2-hardhat-node)
 
 ## Run some checks:
 - Run the test suite: `npx hardhat test` (uses harhat network. Note: tests fail if use localhost)
 - Check the deployment with a script`npx hardhat run --network localhost scripts/00_checkDeployment.ts`
-
-
-
 
 
 # Notes:
@@ -42,7 +39,7 @@ IOTA_PRIVATE_KEY="your_iota_evm_testnet_private_key"
   - Run in separate process
   - Will Reuse the deployed contracts and just redeploy Testnet
   - Uses the added `hardhat deploy` task provided by `hardhat-deploy` plugin
-  - Note this warning regarding `hardhat` vs `localhost` networks at the bottom of this section:
+  - Note this warning regarding `hardhat` vs `localhost` networks at the bottom of the [hardhat-deploy task of the hardhat-deploy plugin](https://github.com/wighawag/hardhat-deploy/tree/master#1-hardhat-deploy):
   > :warning: Note that the deployments are saved as if the network name is `localhost`. This is because `hardhat node` is expected to be used as localhost: You can for example execute `hardhat --network localhost console` after `node` is running. Doing `hardhat --network hardhat console` would indeed not do anything useful. It still take the configuration from `hardhat` in the hardhat.config.js file though.
 - **NB:** Reset your MetaMask deployer account, otherwise you might encounter nonce errors due to inconsistent account state or encounter other odd errors.
 
@@ -70,11 +67,11 @@ Additional deployment scripts:
 11. Testnet with OHM Faucet
 
 ---
-## Contract Analysis
+# Contract Analysis
 
 Let's look at each of the contracts in term to understand what they do and their overall purpose
 
-### Contract: Olympus Authority `OlympusAuthority.sol`
+## Contract: Olympus Authority `OlympusAuthority.sol`
 
 This is the top-level security contract that defines ownership and access roles for the rest of the contracts. 
 
@@ -95,7 +92,7 @@ All Olympus Authority roles are initialized to the deployer's address at first d
 
 ---
 
-### sOHM `sOlympusERC20.sol`
+## sOHM `sOlympusERC20.sol`
 
 sOHM is the `staked OHM` ERC20 token 
 
@@ -103,12 +100,12 @@ sOHM is the `staked OHM` ERC20 token
 
 ---
 
-### gOHM `governance/gOHM.sol`
+## gOHM `governance/gOHM.sol`
 
 ---
 
 
-### OHM `OlympusERC20Token.sol`
+## OHM `OlympusERC20Token.sol`
 
 #### Constructor:
 ![](./img/OHMConstructor.png)
