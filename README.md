@@ -11,10 +11,10 @@ This repository is forked from the [Olympus Contracts Repository](https://github
 
 # Quickstart
 ## Clone the analysis repository (this repo)
-1. Clone the repository: `git clone https://github.com/joescharf/olympus-contracts.git olympus-v2-analysis`
+1. Clone the repository: `git clone https://github.com/joescharf/olympus-v2-analysis.git`
 2. `cd olympus-v2-analysis`
-4. `yarn install`
-5. create a `.env` file
+3. `yarn install`
+4. create a `.env` file
 
 ```
 MNEMONIC="twelve secret words designating your wallet accounts ..."
