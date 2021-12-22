@@ -8,10 +8,9 @@ One of the best ways to come up to speed on solidity, smart contracts, DeFi, and
 - --> **Part 1: Setup**
 
 # Setup
-## Clone the analysis repositoruy
+## Clone the analysis repository (this repo)
 1. Clone the repository: `git clone https://github.com/joescharf/olympus-contracts.git olympus-v2-analysis`
 2. `cd olympus-v2-analysis`
-3. Checkout the v2.0 branch: `git checkout v2.0`
 4. `yarn install`
 5. create a `.env` file
 

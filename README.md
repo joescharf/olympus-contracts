@@ -10,10 +10,9 @@ This repository is forked from the [Olympus Contracts Repository](https://github
 - [Part 1: Setup](ANALYSIS/olympus_v2_smart_contract_analysis_part_1_setup.md)
 
 # Quickstart
-## Clone the analysis repositoruy
+## Clone the analysis repository (this repo)
 1. Clone the repository: `git clone https://github.com/joescharf/olympus-contracts.git olympus-v2-analysis`
 2. `cd olympus-v2-analysis`
-3. Checkout the v2.0 branch: `git checkout v2.0`
 4. `yarn install`
 5. create a `.env` file
 
