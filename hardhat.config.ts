@@ -16,7 +16,7 @@ dotenvConfig({ path: resolve(__dirname, "./.env") });
 
 const chainIds = {
     goerli: 5,
-    hardhat: 31337,
+    hardhat: 1337,
     kovan: 42,
     mainnet: 1,
     rinkeby: 4,
@@ -24,10 +24,11 @@ const chainIds = {
 };
 
 // Ensure that we have all the environment variables we need.
-//const mnemonic: string | undefined = process.env.MNEMONIC ?? "NO_MNEMONIC";
+const mnemonic: string | undefined = process.env.MNEMONIC ?? "NO_MNEMONIC";
 const privateKey: string | undefined = process.env.PRIVATE_KEY ?? "NO_PRIVATE_KEY";
 // Make sure node is setup on Alchemy website
 const alchemyApiKey: string | undefined = process.env.ALCHEMY_API_KEY ?? "NO_ALCHEMY_API_KEY";
+const iotaPrivateKey: string | undefined = process.env.IOTA_PRIVATE_KEY ?? "NO_IOTA_PRIVATE_KEY";
 
 function getChainConfig(network: keyof typeof chainIds): NetworkUserConfig {
     const url = `https://eth-${network}.alchemyapi.io/v2/${alchemyApiKey}`;
@@ -60,6 +61,18 @@ const config: HardhatUserConfig = {
             //    mnemonic,
             //},
             chainId: chainIds.hardhat,
+        },
+        iota: {
+            url: "https://evm.wasp.sc.iota.org",
+            chainId: 1074,
+            accounts: [iotaPrivateKey],
+            timeout: 60000,
+        },
+        iotadev: {
+            url: "http://localhost:18545",
+            chainId: 1075,
+            accounts: [iotaPrivateKey],
+            timeout: 60000,
         },
         // Uncomment for testing.
         // rinkeby: getChainConfig("rinkeby"),
