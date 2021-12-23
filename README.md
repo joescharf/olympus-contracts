@@ -30,6 +30,12 @@ IOTA_PRIVATE_KEY="your_iota_evm_testnet_private_key"
 # uses overloaded hardhat-node provided by hardhat-deploy plugin
 npx hardhat node --network hardhat
 
+## You'll probably get an error along the lines of:
+## scripts/deploy/005_deploy_treasury.ts:5:42 - error TS2307: Cannot find module '../../types' or its corresponding type declarations.
+
+## Fix: Just run the deployment again!
+npx hardhat node --network hardhat
+
 # Run test suite:
 npx hardhat test
 
