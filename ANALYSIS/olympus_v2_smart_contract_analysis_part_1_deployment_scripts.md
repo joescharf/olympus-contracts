@@ -1,34 +1,11 @@
-# Olympus V2 Smart Contract Analysis - Part 1: Setup
+# Olympus V2 Smart Contract Analysis - Part 1: Deployment Scripts
 
 ## Overview
 One of the best ways to come up to speed on solidity, smart contracts, DeFi, and Olympus V2 is to dive into the code. The following posts are my notes as I've been digging into the Olympus V2 contracts to better understand how it all works.
 
-## Links
+## Table of Contents
 - [Main README](/README.md)
-- --> **Part 1: Setup**
-
-# Setup
-## Clone the analysis repository (this repo)
-1. Clone the repository: `git clone https://github.com/joescharf/olympus-v2-analysis.git`
-2. `cd olympus-v2-analysis`
-3. `yarn install`
-4. create a `.env` file
-
-```
-MNEMONIC="twelve secret words designating your wallet accounts ..."
-ALCHEMY_API_KEY="your_alchemy_api_key"
-IOTA_PRIVATE_KEY="your_iota_evm_testnet_private_key"
-```
-
-## Deploy the contracts:
-- `npx hardhat node --network hardhat` to start local json-rpc server and deploys all the contracts.
-  - Run it in separate terminal process 
-  - Uses the overloaded `hardhat node` task provided by `hardhat-deploy` plugin [see hardhat node task for more info](https://github.com/wighawag/hardhat-deploy/tree/master#2-hardhat-node)
-
-## Run some checks:
-- Run the test suite: `npx hardhat test` (uses harhat network. Note: tests fail if use localhost)
-- Check the deployment with a script`npx hardhat run --network localhost scripts/00_checkDeployment.ts`
-
+- --> **Part 1: Deployment Scripts**
 
 # Notes:
 - olympus-contracts `v2.0` tag was created 12/18/2021. Version-2 branch has existed for some time and as I have been researching this, it seems to have had some inconsistent deployment scripts and artifacts, but this is the first time they tagged the code and this looks to coincide with the Olympus v2 migration per [Get ready for Olympus V2 Migration](https://olympusdao.medium.com/get-ready-for-olympus-v2-migration-360764a61168) The code at this tag seems to be much more complete now and easier to follow what is being deployed, dependencies, etc. 
@@ -111,6 +88,4 @@ sOHM is the `staked OHM` ERC20 token
 ![](./img/OHMConstructor.png)
 
 - Only the vault can `mint`
-
-#### `deployAll.js`
 
