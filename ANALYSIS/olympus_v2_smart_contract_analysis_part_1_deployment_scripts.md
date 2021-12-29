@@ -5,7 +5,9 @@ One of the best ways to come up to speed on solidity, smart contracts, DeFi, and
 
 ## Table of Contents
 - [Main README](/README.md)
-- --> **Part 1: Deployment Scripts**
+- --> **Deployment Scripts**
+- [Testnet and OHM Faucet](ANALYSIS/olympus_v2_ohm_faucet.md)
+- [Staking analysis](ANALYSIS/olympus_v2_staking.md)
 
 # Notes:
 - olympus-contracts `v2.0` tag was created 12/18/2021. Version-2 branch has existed for some time and as I have been researching this, it seems to have had some inconsistent deployment scripts and artifacts, but this is the first time they tagged the code and this looks to coincide with the Olympus v2 migration per [Get ready for Olympus V2 Migration](https://olympusdao.medium.com/get-ready-for-olympus-v2-migration-360764a61168) The code at this tag seems to be much more complete now and easier to follow what is being deployed, dependencies, etc. 

@@ -1,7 +1,11 @@
 # Olympus V2 Staking
 
-there are two avenues to "investing" in Olympus. Staking and Bonding. This post will investigate staking
-
+There are two avenues to "investing" in Olympus. Staking and Bonding. This post will investigate staking
+## Table of Contents
+- [Main README](/README.md)
+- [Deployment Scripts and Contracts](ANALYSIS/olympus_v2_smart_contract_analysis_part_1_deployment_scripts.md)
+- [Testnet and OHM Faucet](ANALYSIS/olympus_v2_ohm_faucet.md)
+- --> **Staking analysis**
 ## Setup
 - Deploy the contracts per [Part 1](olympus_v2_smart_contract_analysis_part_1_deployment_scripts.md)
 - Dispense some OHM from the Testnet Faucet `npx hardhat run --network localhost scripts/01_dispenseOHM.ts`

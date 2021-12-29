@@ -8,7 +8,8 @@ This repository contains some scripts I've developed to investigate the v2 contr
 This repository is forked from the [Olympus Contracts Repository](https://github.com/OlympusDAO/olympus-contracts.git) and references the `v2.0` tag (commit `3bb3605`)
 # Table of Contents
 - --> **README**
-- [Part 1: Deployment Scripts](ANALYSIS/olympus_v2_smart_contract_analysis_part_1_deployment_scripts.md)
+- [Deployment Scripts and Contracts](ANALYSIS/olympus_v2_smart_contract_analysis_part_1_deployment_scripts.md)
+- [Testnet and OHM Faucet](ANALYSIS/olympus_v2_ohm_faucet.md)
 - [Staking analysis](ANALYSIS/olympus_v2_staking.md)
 # Quickstart
 ## Clone the analysis repository (this repo)
