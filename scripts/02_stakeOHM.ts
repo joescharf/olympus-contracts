@@ -44,6 +44,13 @@ async function olympusStats(treasury: any, ohm: any) {
         ethers.utils.commify(ethers.utils.formatUnits(await treasury.ohmDebt(), ohmDecimals)),
         "OHM"
     );
+    console.log(
+        "  Treasury OHM Balance:",
+        ethers.utils.commify(
+            ethers.utils.formatUnits(await ohm.balanceOf(treasury.address), ohmDecimals)
+        ),
+        "OHM"
+    );
     console.log("OHM Stats:");
     console.log(
         "  OHM Total Supply:",
