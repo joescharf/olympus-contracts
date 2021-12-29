@@ -30,12 +30,31 @@ Issues that might be causing this:
 1. Treasury doesn't have enough ohm to mint for distributor recipient
 2. Need to check our initial epoch settings - seems these are always set such that a rebase happens from the get-go.
 
+Adding some console.log debugging:
+```
+  console.log:
+    IN STAKING
+    Staking.rebase()
+      epoch.end 1639430907
+      block.timestamp 1640737625
+      REBASE! epoch.end has passed!
+    sOHM.rebase
+      profit: 0, epoch: 767, circulatingSupply: 0
+      profit is zero so we're returning totalSupply = 5000000000000000
+      new epoch: 768, epoch.end: 1639431907,
+    Distributor.distribute()
+      0: Distributing to: 0xd0141e899a65c95a556fe2b27e5982a6de7fdd7a
+      treasury.mint() amount: 48000000000
+      treasury OHM Balance: 0
+```
+so we're trying to mint 48 OHM to the staking contract but the treasury doesn't have any OHM.
+
 ## Staking Flow:
 
 ### Staking Interpretation Summary
 - Staking.stake() (safe)transfers the amount the caller wants to stake and then calls the rebase function to determine if the asset balances need to be adjusted based on treasury holdings (this is the idea behind OHM as a reserve currency)
 - staking.rebase() only happens if the current epoch has ended, meaning the current block timestamp has passed the designated epoch ending time.
-- distributor.distribute() distributes rewards to recipients added to thenthe distributor info[] array.
+- distributor.distribute() distributes rewards to recipients added to the distributor info[] array.
 
 ### Staking Interpretation Verbose
   - The bulk of the rebase operations happen in sOHM.rebase(profit, epoch) `sOlympusERC20.sol` 

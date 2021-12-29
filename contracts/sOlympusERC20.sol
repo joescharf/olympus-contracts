@@ -124,6 +124,7 @@ contract sOlympus is IsOHM, ERC20Permit {
         console.log("sOHM.rebase");
         console.log("  profit: %d, epoch: %d, circulatingSupply: %d", profit_, epoch_, circulatingSupply_);
         if (profit_ == 0) {
+            console.log("  profit is zero so we're returning totalSupply = %d", _totalSupply);
             emit LogSupply(epoch_, _totalSupply);
             emit LogRebase(epoch_, 0, index());
             return _totalSupply;

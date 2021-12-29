@@ -73,6 +73,7 @@ contract Distributor is IDistributor, OlympusAccessControlled {
             console.log("  %d: Distributing to: %s", i, info[i].recipient);
             if (info[i].rate > 0) {
                 console.log("  treasury.mint() amount: %d", nextRewardAt(info[i].rate));
+                console.log("  treasury OHM Balance: %d", ohm.balanceOf(address(treasury)));
                 treasury.mint(info[i].recipient, nextRewardAt(info[i].rate)); // mint and send tokens
                 adjust(i); // check for adjustment
             }
