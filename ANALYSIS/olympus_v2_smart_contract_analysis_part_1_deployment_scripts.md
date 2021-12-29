@@ -84,8 +84,42 @@ sOHM is the `staked OHM` ERC20 token
 
 ## OHM `OlympusERC20Token.sol`
 
-#### Constructor:
-![](./img/OHMConstructor.png)
+## Treasury
 
-- Only the vault can `mint`
+## Bonding Calculator
+
+## Staking
+
+
+## Distributor
+
+Distributor is used by Staking to distribute staking rewards (epoch rewards) to each recipient specified in the `addRecipient` policy functions (TODO: verify this)
+
+It seems at init of Olympus that you can specify distribution recipients (aka collectors). Maybe you're considered a recipient when you stake ohm, but I don't think this is the case. 
+
+distributor is enabled to mint ohm on treasury in step 2 of `100_post_deployments.ts` treasury(8) is REWARDMANAGER
+
+```ts
+// Step 2: Set distributor as minter on treasury
+await waitFor(treasury.enable(8, distributor.address, ethers.constants.AddressZero)); // Allows distributor to mint ohm.
+```
+
+- constants
+  - ` rateDenominator = 1_000_000`
+- vars
+  - `Info[{rate, recipient}] public info` - recipient / collectors
+  - bounty
+- public functions
+  - `distribute()` public
+    - iterates through info[] and mints OHM tokens from treasurybased on recipient reward rate to recipient
+  - `retrieveBounty()` public
+    - Any distributor bounty goes to the staking contract
+  - `adjust(_index)`
+- policy functions
+  - `setBounty(_bounty)` onlyGovernor
+    - Set a bounty to incentivize keepers - there are several places in the staking call stack where bounty is returned by function. this seems to be where you'd set the bounty for the distributor contract
+  - `addRecipient(_recipient, _rewardRate)`
+    - inits and pushes recipients onto info[]
+  - `removeRecipient(_index)` gov or guardian
+  - `setAdjustment`
 

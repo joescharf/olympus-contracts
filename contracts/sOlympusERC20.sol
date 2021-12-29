@@ -10,6 +10,8 @@ import "./interfaces/IgOHM.sol";
 import "./interfaces/IsOHM.sol";
 import "./interfaces/IStaking.sol";
 
+import "hardhat/console.sol";
+
 contract sOlympus is IsOHM, ERC20Permit {
     /* ========== DEPENDENCIES ========== */
 
@@ -119,6 +121,8 @@ contract sOlympus is IsOHM, ERC20Permit {
     function rebase(uint256 profit_, uint256 epoch_) public override onlyStakingContract returns (uint256) {
         uint256 rebaseAmount;
         uint256 circulatingSupply_ = circulatingSupply();
+        console.log("sOHM.rebase");
+        console.log("  profit: %d, epoch: %d, circulatingSupply: %d", profit_, epoch_, circulatingSupply_);
         if (profit_ == 0) {
             emit LogSupply(epoch_, _totalSupply);
             emit LogRebase(epoch_, 0, index());
@@ -128,12 +132,14 @@ contract sOlympus is IsOHM, ERC20Permit {
         } else {
             rebaseAmount = profit_;
         }
+        console.log("  rebaseAmount: %d", rebaseAmount);
 
         _totalSupply = _totalSupply.add(rebaseAmount);
 
         if (_totalSupply > MAX_SUPPLY) {
             _totalSupply = MAX_SUPPLY;
         }
+        console.log("  _totalSupply: %d", _totalSupply);
 
         _gonsPerFragment = TOTAL_GONS.div(_totalSupply);
 

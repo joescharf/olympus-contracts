@@ -10,6 +10,8 @@ import "./interfaces/IDistributor.sol";
 
 import "./types/OlympusAccessControlled.sol";
 
+import "hardhat/console.sol";
+
 contract Distributor is IDistributor, OlympusAccessControlled {
     /* ========== DEPENDENCIES ========== */
 
@@ -63,10 +65,14 @@ contract Distributor is IDistributor, OlympusAccessControlled {
         @notice send epoch reward to staking contract
      */
     function distribute() external override {
+        console.log("Distributor.distribute()");
+
         require(msg.sender == staking, "Only staking");
         // distribute rewards to each recipient
         for (uint256 i = 0; i < info.length; i++) {
+            console.log("  %d: Distributing to: %s", i, info[i].recipient);
             if (info[i].rate > 0) {
+                console.log("  treasury.mint() amount: %d", nextRewardAt(info[i].rate));
                 treasury.mint(info[i].recipient, nextRewardAt(info[i].rate)); // mint and send tokens
                 adjust(i); // check for adjustment
             }
@@ -151,6 +157,7 @@ contract Distributor is IDistributor, OlympusAccessControlled {
      */
     function setBounty(uint256 _bounty) external override onlyGovernor {
         require(_bounty <= 2e9, "Too much");
+        console.log("Distributor.setBounty() set to %d", _bounty);
         bounty = _bounty;
     }
 
@@ -162,6 +169,7 @@ contract Distributor is IDistributor, OlympusAccessControlled {
     function addRecipient(address _recipient, uint256 _rewardRate) external override onlyGovernor {
         require(_recipient != address(0), "Zero address: Recipient");
         require(_rewardRate <= rateDenominator, "Rate cannot exceed denominator");
+        console.log("Distributor.addRecipient() recipient: %s: rewardRate: %d", _recipient, _rewardRate);
         info.push(Info({recipient: _recipient, rate: _rewardRate}));
     }
 

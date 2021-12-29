@@ -58,6 +58,7 @@
     "deploy:rinkeby": "hardhat --network rinkeby deploy",
     "deploy:ropsten": "hardhat --network ropsten deploy",
     "deploy:hardhat": "hardhat --network hardhat deploy",
+    "deploy:iota": "hardhat --network iota deploy",
     "sourcify:mainnet": "hardhat --network mainnet sourcify",
     "sourcify:rinkeby": "hardhat --network rinkeby sourcify",
     "etherscan:mainnet": "hardhat --network mainnet etherscan-verify",

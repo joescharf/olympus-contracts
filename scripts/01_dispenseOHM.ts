@@ -9,7 +9,7 @@ async function main() {
     const faucetContract = "OhmFaucet";
     const { deployer } = await getNamedAccounts();
     const signer = await ethers.provider.getSigner(deployer);
-    console.log("Using Account:", deployer);
+    console.log("Deployer Account:", deployer);
 
     // Get the deployed contracts
     const ohmDeployment = await deployments.get(CONTRACTS.ohm);
@@ -20,8 +20,13 @@ async function main() {
     const faucet = OhmFaucet__factory.connect(faucetDeployment.address, signer);
 
     // Print faucet balance:
+    const ohmDecimals = await ohm.decimals();
     let faucetBalance = await ohm.balanceOf(faucetDeployment.address);
-    console.log("Faucet balance:", faucetBalance.toString());
+    console.log(
+        "Faucet balance:     ",
+        ethers.utils.commify(ethers.utils.formatUnits(faucetBalance, ohmDecimals)),
+        "OHM"
+    );
 
     console.log("Dispensing 5 OHM:");
     for (let i = 0; i < 5; i++) {
@@ -29,10 +34,18 @@ async function main() {
     }
 
     const deployerBalance = await ohm.balanceOf(deployer);
-    console.log("Deployer balance:", deployerBalance.toString());
+    console.log(
+        "Deployer balance:      ",
+        ethers.utils.commify(ethers.utils.formatUnits(deployerBalance, ohmDecimals)),
+        "OHM"
+    );
 
     faucetBalance = await ohm.balanceOf(faucetDeployment.address);
-    console.log("New Faucet balance:", faucetBalance.toString());
+    console.log(
+        "New Faucet balance: ",
+        ethers.utils.commify(ethers.utils.formatUnits(faucetBalance, ohmDecimals)),
+        "OHM"
+    );
 }
 
 main()

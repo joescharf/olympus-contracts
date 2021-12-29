@@ -11,6 +11,8 @@ import "./interfaces/IDistributor.sol";
 
 import "./types/OlympusAccessControlled.sol";
 
+import "hardhat/console.sol";
+
 contract OlympusStaking is OlympusAccessControlled {
     /* ========== DEPENDENCIES ========== */
 
@@ -91,6 +93,7 @@ contract OlympusStaking is OlympusAccessControlled {
         bool _rebasing,
         bool _claim
     ) external returns (uint256) {
+        console.log("IN STAKING");
         OHM.safeTransferFrom(msg.sender, address(this), _amount);
         _amount = _amount.add(rebase()); // add bounty if rebase occurred
         if (_claim && warmupPeriod == 0) {
@@ -220,11 +223,18 @@ contract OlympusStaking is OlympusAccessControlled {
      */
     function rebase() public returns (uint256) {
         uint256 bounty;
+        // epoch.end = block.timestamp + 1000;
+        console.log("Staking.rebase()");
+        console.log("  epoch.end", epoch.end);
+        console.log("  block.timestamp", block.timestamp);
+
         if (epoch.end <= block.timestamp) {
+            console.log("  REBASE! epoch.end has passed!");
             sOHM.rebase(epoch.distribute, epoch.number);
 
             epoch.end = epoch.end.add(epoch.length);
             epoch.number++;
+            console.log(  "  new epoch: %d, epoch.end: %d,", epoch.number, epoch.end);
 
             if (address(distributor) != address(0)) {
                 distributor.distribute();
