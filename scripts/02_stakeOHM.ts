@@ -8,56 +8,12 @@ import {
     OlympusTreasury__factory,
     DAI__factory,
     OlympusStaking__factory,
+    OlympusERC20Token,
+    OlympusTreasury,
 } from "../types";
 import { waitFor } from "./txHelper";
 import { txnButtonText } from "../../olympus-frontend/src/slices/PendingTxnsSlice";
-
-async function olympusStats(treasury: any, ohm: any) {
-    // get number of OHM decimals for formatting purposes
-    const ohmDecimals = await ohm.decimals();
-
-    console.log("\nTreasury Stats:");
-    console.log(
-        "  Treasury Base Supply:",
-        ethers.utils.commify(ethers.utils.formatUnits(await treasury.baseSupply(), ohmDecimals)),
-        "OHM"
-    );
-    console.log(
-        "  Treasury Total Reserves:",
-        ethers.utils.commify(ethers.utils.formatUnits(await treasury.totalReserves(), ohmDecimals)),
-        "OHM"
-    );
-    console.log(
-        "  Treasury EXCESS Reserves:",
-        ethers.utils.commify(
-            ethers.utils.formatUnits(await treasury.excessReserves(), ohmDecimals)
-        ),
-        "OHM"
-    );
-    console.log(
-        "  Treasury Total Debt:",
-        ethers.utils.commify(ethers.utils.formatUnits(await treasury.totalDebt(), ohmDecimals)),
-        "OHM"
-    );
-    console.log(
-        "  Treasury OHM Debt:",
-        ethers.utils.commify(ethers.utils.formatUnits(await treasury.ohmDebt(), ohmDecimals)),
-        "OHM"
-    );
-    console.log(
-        "  Treasury OHM Balance:",
-        ethers.utils.commify(
-            ethers.utils.formatUnits(await ohm.balanceOf(treasury.address), ohmDecimals)
-        ),
-        "OHM"
-    );
-    console.log("OHM Stats:");
-    console.log(
-        "  OHM Total Supply:",
-        ethers.utils.commify(ethers.utils.formatUnits(await ohm.totalSupply(), ohmDecimals)),
-        "OHM\n"
-    );
-}
+import { jsonRPC, epoch, olympusStats } from "./joeUtil";
 
 async function main() {
     const faucetContract = "OhmFaucet";
@@ -85,35 +41,13 @@ async function main() {
     const daiDecimals = await mockDai.decimals();
 
     // JSON-RPC Provider Stats:
-    console.log("\n---- JSON-RPC Provider Stats ----");
-    // Get current block number
-    const currentBlockNumber = await ethers.provider.send("eth_blockNumber", []);
-    console.log(
-        "Current Block Number:",
-        ethers.utils.commify(ethers.BigNumber.from(currentBlockNumber).toString())
-    );
+    await jsonRPC();
 
-    // Get current block by number
-    const currentBlock = await ethers.provider.send("eth_getBlockByNumber", [
-        currentBlockNumber,
-        false,
-    ]);
-    // Output block timestamp
-    console.log(
-        "Current Block Timestamp:",
-        ethers.utils.commify(ethers.BigNumber.from(currentBlock.timestamp).toString())
-    );
-
-    console.log("---- EPOCH ----");
-    const epoch = await staking.epoch();
-    console.log("Epoch len:", ethers.utils.commify(epoch[0].toString()), "seconds"); // because epoch.length returns length of the array!
-    console.log("Epoch num:", ethers.utils.commify(epoch.number.toString()), "since inception");
-    console.log("Epoch end:", ethers.utils.commify(epoch.end.toString()), "seconds");
-    console.log(
-        "Epoch rem:",
-        ethers.utils.commify(epoch.end.sub(currentBlock.timestamp).toString()),
-        "seconds"
-    );
+    // Epoch stats
+    console.log("staking: ", typeof staking);
+    console.log("treasury", typeof treasury);
+    console.log("ohm", typeof ohm);
+    await epoch(staking);
 
     // First call the staking view functions to see where we stand:
     console.log("\n---- STAKING VIEW FUNCTIONS ----");
@@ -145,6 +79,7 @@ async function main() {
         ethers.utils.commify(ethers.utils.formatUnits(deployerBalance, ohmDecimals)),
         "OHM"
     );
+    return;
 
     // Mint Dai
     const daiAmount = INITIAL_MINT;
