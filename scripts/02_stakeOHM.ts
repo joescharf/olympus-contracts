@@ -42,11 +42,7 @@ async function main() {
 
     // JSON-RPC Provider Stats:
     await jsonRPC();
-
     // Epoch stats
-    console.log("staking: ", typeof staking);
-    console.log("treasury", typeof treasury);
-    console.log("ohm", typeof ohm);
     await epoch(staking);
 
     // First call the staking view functions to see where we stand:
@@ -79,7 +75,6 @@ async function main() {
         ethers.utils.commify(ethers.utils.formatUnits(deployerBalance, ohmDecimals)),
         "OHM"
     );
-    return;
 
     // Mint Dai
     const daiAmount = INITIAL_MINT;
@@ -144,6 +139,12 @@ async function main() {
         ethers.utils.commify(ethers.utils.formatUnits(sOHMSupplyInWarmup, ohmDecimals)),
         "OHM"
     );
+
+    // JSON-RPC Provider Stats:
+    await jsonRPC();
+    // Epoch stats
+    await epoch(staking);
+    await olympusStats(treasury, ohm);
 }
 
 main()
